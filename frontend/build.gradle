@@ -1,0 +1,34 @@
+plugins {
+    id 'com.github.node-gradle.node' version '1.5.3'
+}
+
+apply plugin: 'com.github.node-gradle.node'
+
+node {
+    version = '14.15.4'
+
+    npmVersion = '6.14.10'
+
+    distBaseUrl = 'https://nodejs.org/dist'
+
+    download = true
+
+    workDir = file("${project.buildDir}/nodejs")
+
+    npmWorkDir = file("${project.buildDir}/npm")
+
+    nodeModulesDir = file("${project.projectDir}")
+}
+
+task npmBuild(type: NpmTask) {
+    dependsOn 'npmInstall'
+    dependsOn 'clean'
+
+    args = ['run', 'build']
+}
+
+task clean() {
+    doFirst {
+        delete 'build/dist'
+    }
+}
