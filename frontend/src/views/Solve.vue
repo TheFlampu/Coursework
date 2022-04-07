@@ -9,6 +9,7 @@
 
 <script>
 import QuestionList from "@/components/QuestionList";
+import axios from 'axios';
 
 export default {
   props: ['id'],
@@ -16,63 +17,26 @@ export default {
   components: {QuestionList},
   data: () => ({
     test: {
-      "id": 1,
-      "title": "Тест по математике",
-      "description": "Простой тест по математике",
-      "category": {
-        "id": 1,
-        "name": "Математика"
-      },
-      "questions": [
-        {
-          "id": 1,
-          "title": "Простой пример",
-          "text": "Сколько будет 2 + 2?",
-          "options": [
-            {
-              "id": 1,
-              "text": "1"
-            },
-            {
-              "id": 2,
-              "text": "2"
-            },
-            {
-              "id": 3,
-              "text": "3"
-            },
-            {
-              "id": 4,
-              "text": "4"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "title": "Сложный пример",
-          "text": "Сколько будет 5 + 5?",
-          "options": [
-            {
-              "id": 5,
-              "text": "7"
-            },
-            {
-              "id": 6,
-              "text": "8"
-            },
-            {
-              "id": 7,
-              "text": "9"
-            },
-            {
-              "id": 8,
-              "text": "10"
-            }
-          ]
-        }
-      ]
+      title: '',
+      description: '',
+      category: {},
+      questions: []
     }
-  })
+  }),
+  methods: {
+    getTest() {
+      axios.get('http://localhost:8080/api/getTest?id=' + this.id)
+          .then(response => {
+            this.test = response.data;
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+    }
+  },
+  beforeMount(){
+    this.getTest()
+  }
 }
 </script>
 

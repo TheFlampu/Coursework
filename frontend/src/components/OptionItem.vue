@@ -1,9 +1,10 @@
 <template>
   <label :for="key">{{ option.text }}
     <input
+        :disabled="solved"
         type="checkbox"
         :id="key"
-        :value="option"
+        :value="option.id"
         v-model="checked"
         @change="$emit('update:modelValue', this.isChecked)"
     >
@@ -26,7 +27,7 @@ export default {
       }
     }
   },
-  props: ['option', 'key', 'modelValue'],
+  props: ['option', 'key', 'modelValue', 'solved'],
   name: "OptionItem",
   }
 </script>

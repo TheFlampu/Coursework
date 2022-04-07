@@ -1,11 +1,9 @@
 <template>
-  <ul>
     <TestItem
       v-for="test in tests"
       :key="test.id"
       :test="test"
     />
-  </ul>
 </template>
 
 <script>

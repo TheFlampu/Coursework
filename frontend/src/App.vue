@@ -1,11 +1,18 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Тесты</router-link> |
-    <router-link to="/login">Войти</router-link> |
-  </div>
-
-  <router-view/>
+  <component :is="layout">
+    <router-view/>
+  </component>
 </template>
+
+<script>
+  export default {
+    computed: {
+      layout(){
+        return this.$route.meta.layout || "DefaultLayout";
+      }
+    }
+  }
+</script>
 
 <style>
 
